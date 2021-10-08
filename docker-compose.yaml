@@ -1,0 +1,14 @@
+version: "3"
+services:
+  server:
+    build:
+      dockerfile: "./Dockerfile"
+      context: "."
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./docker-config.yaml:/etc/grafeas/config.yaml
+    command: "--config /etc/grafeas/config.yaml"
+    image: "dbom-project/grafeas-dbom"
+    environment:
+      DEBUG: "false"
