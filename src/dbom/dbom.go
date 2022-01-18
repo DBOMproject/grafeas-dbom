@@ -439,50 +439,6 @@ func (dbomStorage *DbomStorage) GetOccurrenceNote(ctx context.Context, projectID
 
 // ListNoteOccurrences returns the occurrence assets from the configured dbom channel for the given note
 func (dbomStorage *DbomStorage) ListNoteOccurrences(ctx context.Context, projectID, noteID, filter, pageToken string, pageSize int32) ([]*pb.Occurrence, string, error) {
-	/*noteParams := asset.NewQueryAssetsPostParams()
-	noteParams.SetChannelID(dbomStorage.config.Channel)
-	noteParams.SetRepoID(dbomStorage.config.Repo)
-	noteQuery := models.QueryAssetDefinition{}
-	noteID := createNoteID(projectID, noteID)
-	noteQuery.Query = createEqualQuery(id, noteID)
-	noteParams.SetBody(&noteQuery)
-	note, err := dbomStorage.gateway.Asset.QueryAssetsPost(noteParams)
-	notePayload := note.Payload.(map[string]interface{})[noteID]
-	children := notePayload.(map[string]interface{})[attachedChildren]
-	var noteIDs []string
-	for _, element := range children.([]interface{}) {
-		elementMap := element.(map[string]interface{})
-		aID := elementMap[assetID].(string)
-		noteIDs = append(noteIDs, aID)
-	}
-	if err != nil {
-		dbomStorage.logger.Err(err).Msg(err.Error())
-		return nil, "", err
-	}
-	if err != nil {
-		dbomStorage.logger.Err(err).Msg(err.Error())
-		return nil, "", err
-	}
-	params := asset.NewQueryAssetsPostParams()
-	params.SetChannelID(dbomStorage.config.Channel)
-	params.SetRepoID(dbomStorage.config.Repo)
-	query := models.QueryAssetDefinition{}
-	query.Query = createInQuery(id, noteIDs)
-	params.SetBody(&query)
-	res, err := dbomStorage.gateway.Asset.QueryAssetsPost(params)
-	if err != nil {
-		dbomStorage.logger.Err(err).Msg(err.Error())
-		return nil, "", err
-	}
-	payload := res.Payload.(map[string]interface{})
-	occurrences := []*pb.Occurrence{}
-	for _, element := range payload {
-		occurrence := pb.Occurrence{}
-		meta, _ := json.Marshal(element.(map[string]interface{})[assetMetadata])
-		json.Unmarshal(meta, &occurrence)
-		occurrences = append(occurrences, &occurrence)
-	}
-	return occurrences, "", nil*/
 	params := asset.NewQueryAssetsPostParams()
 	params.SetChannelID(dbomStorage.config.Channel)
 	params.SetRepoID(dbomStorage.config.Repo)
