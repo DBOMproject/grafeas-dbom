@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "73a8e095-cb6c-4cd8-8e5f-0e79aa6f388b",
+		"_postman_id": "7f88186f-6ac3-46dd-8b1b-020e4f819f68",
 		"name": "Grafeas API",
 		"description": "Illustrates the different API calls to create and view projects, notes and occurrences.\nDifferent types of notes and occurrences are generated (build, vulnerability, deployment)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -20,7 +20,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"projects/provider_example\"}",
+					"raw": "{\r\n    \"name\": \"projects/provider_example\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,7 +56,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"projects/occurrence_example\"}",
+					"raw": "{\r\n    \"name\": \"projects/occurrence_example\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,11 +114,12 @@
 					"raw": "{\n    \"shortDescription\": \"Gives an example vulnerability note\",\n    \"longDescription\": \"Shows the fields that need to be set in order to create a vulnerability note inside a project\",\n    \"kind\": \"VULNERABILITY\",\n    \"vulnerability\": {\n        \"details\": [\n        {\n            \"package\": \"libexempi3\",\n            \"cpeUri\": \"cpe:/o:debian:debian_linux:7\",\n            \"minAffectedVersion\": {\n              \"name\": \"2.5.7\",\n              \"revision\": \"1\",\n              \"kind\": \"NORMAL\"\n            }\n        }]\n    }\n}"
 				},
 				"url": {
-					"raw": "http://{{host}}/v1beta1/projects/provider_example/notes?note_id=exampleVulnerabilityNote",
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/provider_example/notes?note_id=exampleVulnerabilityNote",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
+					"port": "{{port}}",
 					"path": [
 						"v1beta1",
 						"projects",
@@ -222,7 +223,7 @@
 					"raw": "{\n    \"shortDescription\": \"Gives an example build note\",\n    \"longDescription\": \"Shows the fields that need to be set in order to create a build note inside a project\",\n    \"kind\": \"BUILD\",\n    \"build\": {\n    \t\"builderVersion\": \"some version\",\n    \t\"signature\":{\n        \t\t\"publicKey\": \"some public key\",\n        \t\t\"signature\": \"Z3JhZmVhcw==\",\n        \t\t\"keyId\": \"some key identifier\",\n        \t\t\"keyType\": 0\n        \t\n    \t}\n    }\n}"
 				},
 				"url": {
-					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}/notes?note_id=exampleBuildNote",
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/provider_example/notes?note_id=exampleBuildNote",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -231,7 +232,7 @@
 					"path": [
 						"v1beta1",
 						"projects",
-						"{{project}}",
+						"provider_example",
 						"notes"
 					],
 					"query": [
@@ -250,7 +251,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}/notes",
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/provider_example/notes",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -259,7 +260,7 @@
 					"path": [
 						"v1beta1",
 						"projects",
-						"{{project}}",
+						"provider_example",
 						"notes"
 					]
 				}
@@ -431,7 +432,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"projects/provider_example/notes/testBuildNote\"\n}",
+					"raw": "{\n    \"name\": \"projects/provider_example/notes/testBuildNote\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -439,11 +440,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://{{host}}/v1beta1/projects/provider_example/notes/exampleBuildNote",
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/provider_example/notes/exampleBuildNote",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
 					],
+					"port": "{{port}}",
 					"path": [
 						"v1beta1",
 						"projects",
