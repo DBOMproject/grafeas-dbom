@@ -34,6 +34,23 @@ This repository currently contains an MVP implementation of the Storage Provider
 - [ ] Filtering Support (for `List` methods)
 - [ ] Pagination
 
+In terms of DBoM Channel Support, the following configurations are supported
+
+- [x] Single Channel
+  - [x] Single Channel Read Only
+  - [x] Single Channel Read, Single Channel Write
+- [ ] Multi Channel
+  - [ ] Multi Channel Read Only
+    - Ability to access Notes & Occurences across channels & providers
+    - Can be implemented with existing APIs on the DBoM and Grafeas End. 
+    - A more flexible implementation can be created if the Grafeas API can be amended with ability to send metadata to the underlying storage implementation (used to specify a set of channels to read from)
+  - [ ] Multi Channel Read, Single Channel Write
+    - Similar to the previous configuration, but with the ability to also write on a preconfigured channel
+    - Similar implementation characteristics to the previous configuration
+  - [ ] Multi Channel Read, Multi Channel Write
+    - Ability to read and write to multiple channels
+    - Needs amendment to the Grafeas API surface to allow metadata to besent to the underlying storage implementation (to specify which channel to write to)
+
 
 ## Usage
 
@@ -45,7 +62,7 @@ Configure the appropriate endpoint in [docker-config.yaml](./docker-config.yaml)
 
 ## Getting help
 
-If you have any queries on insert-project-name, feel free to reach us on any of our [communication channels](https://github.com/DBOMproject/community/blob/master/COMMUNICATION.md) 
+If you have any queries on grafeas-dbom, feel free to reach us on any of our [communication channels](https://github.com/DBOMproject/community/blob/master/COMMUNICATION.md) 
 
 ## Getting involved
 

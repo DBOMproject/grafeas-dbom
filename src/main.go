@@ -35,12 +35,12 @@ func main() {
 
 	err := grafeasStorage.RegisterStorageTypeProvider("dbom", registerStorageTypeProvider)
 	if err != nil {
-		logger.Err(err).Msg("Error when registering dbom storage")
+		logger.Err(err).Msg("error when registering dbom storage")
 	} else {
-		logger.Info().Msg("Starting Grafeas Server with DBoM Storage")
+		logger.Info().Msg("starting Grafeas Server with DBoM Storage")
 		err = server.StartGrafeas()
 		if err != nil {
-			logger.Err(err).Msg("Failed to start Grafeas server...")
+			logger.Err(err).Msg("failed to start Grafeas server...")
 		}
 	}
 }

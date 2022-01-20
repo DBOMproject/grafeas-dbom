@@ -22,8 +22,6 @@ import (
 	"encoding/json"
 	"os"
 
-	//"time"
-
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 )
