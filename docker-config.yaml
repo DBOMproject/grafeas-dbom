@@ -1,0 +1,12 @@
+grafeas:
+  api:
+    address: "0.0.0.0:8080"
+    cafile:
+    keyfile:
+    certfile:
+    cors_allowed_origins:
+  storage_type: dbom
+  dbom:
+    gateway: "host.docker.internal:3000"
+    channel: "test_channel"
+    repo: "DB1"

@@ -1,0 +1,940 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Chainsource Gateway",
+    "description": "The HTTP REST API for the Digital Bill of Materials PoC's Distributed Ledger Gateway"
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/repo/{repoID}/chan": {
+      "parameters": [
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "get": {
+        "summary": "List Channels",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "GetChannels",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of channel ids have been retrieved and are in the body"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset": {
+      "parameters": [
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "get": {
+        "summary": "List Assets",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "RetrieveAssets",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of asset ids have been retrieved and are in the body"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/_query": {
+      "parameters": [
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "get": {
+        "summary": "Query Assets",
+        "tags": [
+          "Asset"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Query"
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Fields to return"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Pagination limit"
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Pagination skip"
+          }
+        ],
+        "operationId": "QueryAssets",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Assets have been retrieved successfully and are in the body",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          },
+          "500": {
+            "description": "Error on agent"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          }
+        }
+      },
+      "post": {
+        "summary": "Query Assets",
+        "tags": [
+          "Asset"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/QueryAssetDefinition"
+            }
+          }
+        ],
+        "operationId": "QueryAssetsPost",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Assets have been retrieved successfully and are in the body",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          },
+          "500": {
+            "description": "Error on agent"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "post": {
+        "summary": "Add An Asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "AddAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AssetDefinition"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Asset was successfully created by the repository agent"
+          },
+          "400": {
+            "description": "Expected schema for an asset was not matched"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel or repository found for that URI"
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve an Asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "RetrieveAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset has been retrieved and is in the body",
+            "schema": {
+              "$ref": "#/definitions/AssetDefinition"
+            }
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update Asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "UpdateAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AssetDefinition"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset was successfully created by the repository agent"
+          },
+          "400": {
+            "description": "Expected schema for an asset was not matched"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel or repository found for that URI"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/trail": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "get": {
+        "summary": "Get the audit trail of an asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "AuditAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset Audit Trail has been retrieved and is in the body"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/attach": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "post": {
+        "summary": "Attach a SubAsset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "AttachSubAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/AttachSubAssetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset was successfully attached to the passed subasset by the repository agent"
+          },
+          "400": {
+            "description": "Expected schema for a subasset was not matched"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel or repository found for that URI"
+          },
+          "409": {
+            "description": "Conflict with state. Possibly attaching an asset to itself"
+          },
+          "403": {
+            "description": "Forbidden to add this subasset (Possibly already attached)"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/detach": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "post": {
+        "summary": "Detach a Subasset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "DetachSubasset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DetachSubassetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset was successfully unattached from the passed subasset by the repository agent"
+          },
+          "400": {
+            "description": "Expected schema for a subasset was not matched"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel or repository found for that URI, or Subasset is not already attached to this asset"
+          },
+          "403": {
+            "description": "Forbidden to add this subasset (Possibly already linked)"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/validate": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "get": {
+        "summary": "Validate the manufacturer signature",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "ValidateAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Signature validated"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          },
+          "400": {
+            "description": "Invalid signature"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/export": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        },
+        {
+          "name": "inlineOutput",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description": "Output as inline json"
+        }
+      ],
+      "get": {
+        "summary": "Export an asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "ExportAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset as been exported to a json tree available in the body"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/export/{fileName}": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        },
+        {
+          "name": "fileName",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Name of file to export"
+        }
+      ],
+      "get": {
+        "summary": "Export an asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "ExportFileAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset as been exported to a json tree available in the filename specified"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel, repository or asset found for that URI"
+          }
+        }
+      }
+    },
+    "/repo/{repoID}/chan/{channelID}/asset/{assetID}/transfer": {
+      "parameters": [
+        {
+          "name": "assetID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Asset ID"
+        },
+        {
+          "name": "channelID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Channel ID"
+        },
+        {
+          "name": "repoID",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Repository ID"
+        }
+      ],
+      "post": {
+        "summary": "Transfer an Asset",
+        "tags": [
+          "Asset"
+        ],
+        "operationId": "TransferAsset",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TransferAssetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Asset was successfully transferred to the given repository details in the request body"
+          },
+          "400": {
+            "description": "Expected schema for an asset transfer was not matched"
+          },
+          "502": {
+            "description": "Error on repository agent"
+          },
+          "404": {
+            "description": "No channel or repository found for that URI"
+          },
+          "409": {
+            "description": "Destination asset already exists"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AssetDefinition": {
+      "title": "AssetDefinition",
+      "example": {
+        "standardVersion": 1,
+        "documentName": "BoM for CPU Core i5 3500k",
+        "documentCreator": "Intel FAB California",
+        "documentCreatedDate": "2020-03-19",
+        "assetType": "HardwareComponent",
+        "assetSubType": "CPUUnit",
+        "assetManufacturer": "Intel Corporation",
+        "assetModelNumber": "BX80677I57500",
+        "assetDescription": "Core i5 3500k Desktop Processor",
+        "assetMetadata": {
+          "clockSpeed": "3.4Ghz",
+          "cpuSocket": "LGA 1151",
+          "physicalCoreCount": "4",
+          "supportedMemoryType": "DDR4SDRAM",
+          "packageWattage": "65",
+          "packageWeight": "340g"
+        },
+        "manufactureSignature": "wsBcBAEBCAAQBQJecxBBCRDhB93OjBXccAAAlAQH/0N2HhaK6fmADG0QxK9i8xIrgncGzvii6OqPzyVtyjA7RrpgA1c5E5wN5eW8XmPaqpMvtP3RenuTlXTH2d647QnzdxYuNOKjVXGuweBMkBqnKBf8hHeH6adBTh6Jlnbt3OndMsE06BMBz59Z/X4tmKoAWXox1EPraAi9+A6BqeB5YHXDQJ6SXsW9fLKoQVECsi0MHOR+CjGcu1R1dyP5s2Vd9jcm+DLXLmxz6zTqS7h1neLMsFm4jIhxYsh5mQ49R4r6Yi76RIMK5G6LxX32BzKb9rTDSKdqRFQAv4JsoZXTPRwlM3MG/FCQWYhtvc6righlAMJOVSXTxy54TPKeXe4==SVL1"
+      },
+      "type": "object",
+      "properties": {
+        "standardVersion": {
+          "type": "number"
+        },
+        "documentName": {
+          "type": "string"
+        },
+        "documentCreator": {
+          "type": "string"
+        },
+        "documentCreatedDate": {
+          "type": "string"
+        },
+        "assetType": {
+          "type": "string"
+        },
+        "assetSubType": {
+          "type": "string"
+        },
+        "assetManufacturer": {
+          "type": "string"
+        },
+        "assetModelNumber": {
+          "type": "string"
+        },
+        "assetDescription": {
+          "type": "string"
+        },
+        "assetMetadata": {
+          "type": "object"
+        },
+        "manufactureSignature": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "standardVersion",
+        "documentName",
+        "documentCreator",
+        "documentCreatedDate",
+        "assetType",
+        "assetSubType",
+        "assetManufacturer",
+        "assetModelNumber",
+        "assetDescription",
+        "assetMetadata",
+        "manufactureSignature"
+      ]
+    },
+    "QueryAssetDefinition": {
+      "title": "QueryAssetDefinition",
+      "example": {
+        "query": {
+          "$and": [
+            {
+              "assetType": {
+                "$eq": "HardwareComponent"
+              }
+            },
+            {
+              "assetSubType": {
+                "$eq": "CPUUnit"
+              }
+            }
+          ]
+        },
+        "fields": [
+          "documentCreator",
+          "documentCreatedDate",
+          "documentName",
+          "assetManufacturer",
+          "assetMetadata",
+          "manufactureSignature"
+        ],
+        "limit": 20,
+        "skip": 0
+      },
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "object"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limit": {
+          "type": "integer"
+        },
+        "skip": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "AttachSubAssetRequest": {
+      "title": "AttachSubAssetRequest",
+      "example": {
+        "role": "InternalMemory",
+        "subRole": "L3Cache",
+        "repoID": "DB1",
+        "channelID": "C1",
+        "assetID": "ABC02"
+      },
+      "type": "object",
+      "properties": {
+        "role": {
+          "type": "string"
+        },
+        "subRole": {
+          "type": "string"
+        },
+        "repoID": {
+          "type": "string"
+        },
+        "channelID": {
+          "type": "string"
+        },
+        "assetID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "role",
+        "subRole",
+        "repoID",
+        "channelID",
+        "assetID"
+      ]
+    },
+    "DetachSubassetRequest": {
+      "title": "DetachSubassetRequest",
+      "example": {
+        "assetID": "ABC02"
+      },
+      "type": "object",
+      "properties": {
+        "assetID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "assetID"
+      ]
+    },
+    "TransferAssetRequest": {
+      "title": "TransferAssetRequest",
+      "example": {
+        "transferDescription": "sold",
+        "repoID": "DB1",
+        "channelID": "C2",
+        "assetID": "ABC01"
+      },
+      "type": "object",
+      "properties": {
+        "transferDescription": {
+          "type": "string"
+        },
+        "repoID": {
+          "type": "string"
+        },
+        "channelID": {
+          "type": "string"
+        },
+        "assetID": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "repoID",
+        "channelID",
+        "assetID"
+      ]
+    }
+  },
+  "tags": [
+    {
+      "name": "Asset",
+      "description": ""
+    }
+  ]
+}

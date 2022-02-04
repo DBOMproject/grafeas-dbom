@@ -1,0 +1,231 @@
+{
+	"info": {
+		"_postman_id": "346d895d-1e93-48a9-806d-3a347f21becd",
+		"name": "Grafeas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Projects",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Notes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}/notes",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{project}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Project",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"projects/occurrence_example\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Project",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{project}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Note",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}/notes/{{note}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{project}}",
+						"notes",
+						"{{note}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Note Occurenes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}/notes/{{note}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{project}}",
+						"notes",
+						"{{note}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Occurrence Note",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{occurrence_project}}/occurrences/{{occurrence}}/notes",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{occurrence_project}}",
+						"occurrences",
+						"{{occurrence}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Occurrence",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{occurrence_project}}/occurrences/{{occurrence}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{occurrence_project}}",
+						"occurrences",
+						"{{occurrence}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Note",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"projects/{{proejct}}/notes/{{note}}\",\r\n    \"shortDescription\": \"A brief description of the note\",\r\n    \"longDescription\": \"A longer description of the note\",\r\n    \"kind\": \"VULNERABILITY\",\r\n    \"vulnerability\": {\r\n        \"details\": [\r\n        {\r\n            \"package\": \"libexempi3\",\r\n            \"cpeUri\": \"cpe:/o:debian:debian_linux:7\",\r\n            \"minAffectedVersion\": {\r\n              \"name\": \"2.5.7\",\r\n              \"revision\": \"1\",\r\n              \"kind\": \"NORMAL\"\r\n            }\r\n        }]\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}:{{port}}/v1beta1/projects/{{project}}/notes?note_id={{note}}",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"v1beta1",
+						"projects",
+						"{{project}}",
+						"notes"
+					],
+					"query": [
+						{
+							"key": "note_id",
+							"value": "{{note}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
